@@ -20,8 +20,5 @@ public class CategoriaResource {
         Categoria cat2 = new Categoria(2, "Escritório");
 
         return new ArrayList<>(asList(cat1, cat2));
-
-
     }
-
 }
