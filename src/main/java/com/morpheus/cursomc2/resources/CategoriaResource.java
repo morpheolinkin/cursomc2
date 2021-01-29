@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -16,13 +17,19 @@ import java.util.Optional;
 public class CategoriaResource {
 
     @Autowired
-    private CategoriaService cs;
+    private CategoriaService categoriaService;
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<?> find(@PathVariable Integer id){
-        Optional<Categoria> encontrar = cs.find(id);
+        Optional<Categoria> encontrar = categoriaService.find(id);
 
        return ResponseEntity.ok().body(encontrar);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Categoria>> findAll(){
+        List<Categoria> categoriaList = categoriaService.findAll();
+        return ResponseEntity.ok().body(categoriaList);
     }
 }
 
