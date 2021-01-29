@@ -2,6 +2,7 @@ package com.morpheus.cursomc2.services;
 
 import com.morpheus.cursomc2.domain.Categoria;
 import com.morpheus.cursomc2.repository.CategoriaRepository;
+import com.morpheus.cursomc2.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +14,10 @@ public class CategoriaService {
     @Autowired
     private CategoriaRepository categoriaRepository;
 
-    public Optional<Categoria> find(Integer id) {
+    public Categoria find(Integer id) {
         Optional<Categoria> byId = categoriaRepository.findById(id);
-
-        return byId;
+        return byId.orElseThrow(() -> new ObjectNotFoundException(
+                "Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
     }
 
     public List<Categoria> findAll(){

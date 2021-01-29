@@ -15,7 +15,7 @@ public class Categoria implements Serializable {
     private Integer id;
     private String nome;
 
-    @JsonManagedReference
+    @JsonManagedReference //Para evitar a referência ciclíca, um loop infinito;
     @ManyToMany(mappedBy = "categorias")
     private List<Produto> produtos = new ArrayList<>();
 
