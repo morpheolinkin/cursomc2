@@ -1,13 +1,8 @@
 package com.morpheus.cursomc2;
 
-import com.morpheus.cursomc2.domain.Categoria;
-import com.morpheus.cursomc2.domain.Cidade;
-import com.morpheus.cursomc2.domain.Estado;
-import com.morpheus.cursomc2.domain.Produto;
-import com.morpheus.cursomc2.repository.CategoriaRepository;
-import com.morpheus.cursomc2.repository.CidadeRepository;
-import com.morpheus.cursomc2.repository.EstadoRepository;
-import com.morpheus.cursomc2.repository.ProdutoRepository;
+import com.morpheus.cursomc2.domain.*;
+import com.morpheus.cursomc2.domain.enums.TipoCliente;
+import com.morpheus.cursomc2.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -25,6 +20,10 @@ public class Cursomc2Application implements CommandLineRunner {
     private CidadeRepository cidadeRepository;
     @Autowired
     private EstadoRepository estadoRepository;
+    @Autowired
+    private ClienteRepository clienteRepository;
+    @Autowired
+    private EnderecoRepository enderecoRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(Cursomc2Application.class, args);
@@ -62,6 +61,19 @@ public class Cursomc2Application implements CommandLineRunner {
         estadoRepository.saveAll(asList(est1, est2));
         cidadeRepository.saveAll(asList(c1, c2, c3));
 
+        Cliente cl1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
+        cl1.getTelefone().addAll(asList("27363323", "93838393"));
+
+        Endereco e1 = new Endereco(null, "Rua Flores", "300",
+                "Apto 303", "Jardim", "38220834", cl1, c1);
+
+        Endereco e2 = new Endereco(null, "Avenida Matos", "105",
+                "Sala 800", "Centro", "38777012", cl1, c2);
+
+        cl1.getEnderecos().addAll(asList(e1, e2));
+
+        clienteRepository.save(cl1);
+        enderecoRepository.saveAll(asList(e1, e2));
 
 
 
