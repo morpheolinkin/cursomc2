@@ -1,5 +1,6 @@
 package com.morpheus.cursomc2.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.morpheus.cursomc2.domain.enums.TipoCliente;
 
 import javax.persistence.*;
@@ -20,6 +21,7 @@ public class Cliente implements Serializable {
     private String cpfOuCnpj;
     private Integer tipo;//Macete para controlar o numero inteiro do tipo
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "cliente")
     private List<Endereco> enderecos = new ArrayList<>();
 
