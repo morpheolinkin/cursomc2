@@ -1,5 +1,6 @@
 package com.morpheus.cursomc2.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.morpheus.cursomc2.domain.enums.EstadoPagamento;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ public abstract class Pagamento implements Serializable {
     private Integer id;
     private Integer estado;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "pedido_id")
     @MapsId

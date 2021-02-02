@@ -1,5 +1,8 @@
 package com.morpheus.cursomc2.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
@@ -9,6 +12,8 @@ public class Pedido implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm")
     private Date instante;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
@@ -33,15 +38,6 @@ public class Pedido implements Serializable {
         this.instante = instante;
         this.cliente = cliente;
         this.enderecoDeEntrega = enderecoDeEntrega;
-    }
-
-    public List<Pedido> getPedidos(){
-        List<Pedido> list = new ArrayList<>();
-        for (ItemPedido c :
-                itens) {
-            list.add(c.getPedido());
-        }
-        return list;
     }
 
     public Integer getId() {

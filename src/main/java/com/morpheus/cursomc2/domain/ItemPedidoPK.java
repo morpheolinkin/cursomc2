@@ -17,21 +17,6 @@ public class ItemPedidoPK implements Serializable {
     @JoinColumn(name = "produto_id")
     private Produto produto;
 
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ItemPedidoPK)) return false;
-        ItemPedidoPK that = (ItemPedidoPK) o;
-        return Objects.equals(getPedido(), that.getPedido()) && Objects.equals(getProduto(), that.getProduto());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getPedido(), getProduto());
-    }
-
     public Pedido getPedido() {
         return pedido;
     }
@@ -46,5 +31,18 @@ public class ItemPedidoPK implements Serializable {
 
     public void setProduto(Produto produto) {
         this.produto = produto;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ItemPedidoPK)) return false;
+        ItemPedidoPK that = (ItemPedidoPK) o;
+        return Objects.equals(getPedido(), that.getPedido()) && Objects.equals(getProduto(), that.getProduto());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getPedido(), getProduto());
     }
 }

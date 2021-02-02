@@ -1,5 +1,7 @@
 package com.morpheus.cursomc2.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import java.io.Serializable;
@@ -8,6 +10,7 @@ import java.util.Objects;
 @Entity
 public class ItemPedido implements Serializable {
 
+    @JsonIgnore
     @EmbeddedId
     private ItemPedidoPK id = new ItemPedidoPK();
 
@@ -31,12 +34,21 @@ public class ItemPedido implements Serializable {
     /*=====================================================*/
     /*Para ter acesso direto ao PEDIDO e PRODUTO,
     fora da minha classe ItemPedido*/
-    public Pedido getPedido(){
+    @JsonIgnore
+    public Pedido getPedido() {
         return id.getPedido();
     }
 
-    public Produto getProduto(){
+    public void setPedido(Pedido pedido) {
+        id.setPedido(pedido);
+    }
+
+    public Produto getProduto() {
         return id.getProduto();
+    }
+
+    public void setProduto(Produto produto) {
+        id.setProduto(produto);
     }
     /*=====================================================*/
 

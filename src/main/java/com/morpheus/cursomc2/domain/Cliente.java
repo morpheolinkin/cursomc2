@@ -1,6 +1,6 @@
 package com.morpheus.cursomc2.domain;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.morpheus.cursomc2.domain.enums.TipoCliente;
 
 import javax.persistence.*;
@@ -17,19 +17,21 @@ public class Cliente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
+
+    @Column(unique=true)
     private String email;
     private String cpfOuCnpj;
     private Integer tipo;//Macete para controlar o numero inteiro do tipo
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "cliente")
+    @OneToMany(mappedBy = "cliente", cascade=CascadeType.ALL)
     private List<Endereco> enderecos = new ArrayList<>();
 
     @ElementCollection
     @CollectionTable(name = "TELEFONE")
     private Set<String> telefone = new HashSet<>();
 
-    @OneToMany(mappedBy = "cliente")
+    @JsonIgnore
+    @OneToMany(mappedBy="cliente")
     private List<Pedido> pedidos = new ArrayList<>();
 
     public Cliente() {

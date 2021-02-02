@@ -1,10 +1,12 @@
 package com.morpheus.cursomc2.domain;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.morpheus.cursomc2.domain.enums.EstadoPagamento;
 
 import javax.persistence.Entity;
 
 @Entity
+@JsonTypeName("PagamentoComCartao")
 public class PagamentoComCartao extends Pagamento{
     private Integer numeroDeParcelas;
 
