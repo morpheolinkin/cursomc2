@@ -25,7 +25,14 @@ public class CategoriaService {
     }
 
     public Categoria insert(Categoria obj) {
+        //No método SAVE, quando o ID vale nulo ele insere, quando não vale nulo ele atualiza o objeto
         obj.setId(null);
+        return categoriaRepository.save(obj);
+    }
+
+    public Categoria update(Categoria obj) {
+        //No método SAVE, quando o ID vale nulo ele insere, quando não vale nulo ele atualiza o objeto
+        find(obj.getId()); //Verifica se o id existe
         return categoriaRepository.save(obj);
     }
 }
