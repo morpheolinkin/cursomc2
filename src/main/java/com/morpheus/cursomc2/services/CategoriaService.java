@@ -2,8 +2,10 @@ package com.morpheus.cursomc2.services;
 
 import com.morpheus.cursomc2.domain.Categoria;
 import com.morpheus.cursomc2.repository.CategoriaRepository;
+import com.morpheus.cursomc2.services.exceptions.DataIntegrityException;
 import com.morpheus.cursomc2.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,5 +36,15 @@ public class CategoriaService {
         //No método SAVE, quando o ID vale nulo ele insere, quando não vale nulo ele atualiza o objeto
         find(obj.getId()); //Verifica se o id existe
         return categoriaRepository.save(obj);
+    }
+
+    public void delete(Categoria id) {
+        find(id.getId());
+        try {
+            categoriaRepository.deleteById(id.getId());
+        } catch (DataIntegrityViolationException e) {
+            throw new DataIntegrityException("" +
+                    "Não é possível excluir uma categoria que possui um produto");
+        }
     }
 }
