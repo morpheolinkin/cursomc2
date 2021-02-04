@@ -4,6 +4,7 @@ import com.morpheus.cursomc2.domain.Categoria;
 import com.morpheus.cursomc2.dto.CategoriaDTO;
 import com.morpheus.cursomc2.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -30,7 +31,7 @@ public class CategoriaResource {
     @GetMapping
     public ResponseEntity<List<CategoriaDTO>> findAll(){
         List<Categoria> categoriaList = categoriaService.findAll();
-        List<CategoriaDTO> dtoList = categoriaList.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+        List<CategoriaDTO> dtoList = categoriaList.stream().map(CategoriaDTO::new).collect(Collectors.toList());
 
         return ResponseEntity.ok().body(dtoList);
     }
@@ -59,5 +60,17 @@ public class CategoriaResource {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping(value = "/page")
+    public ResponseEntity<Page<CategoriaDTO>> findPage(
+            @RequestParam(value="page", defaultValue="0") Integer page,
+            @RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage,
+            @RequestParam(value="direction", defaultValue="ASC") String direction,
+            @RequestParam(value="orderBy", defaultValue="nome") String orderBy) {
+
+        Page<Categoria> list = categoriaService.findPage(page, linesPerPage, direction, orderBy);
+        Page<CategoriaDTO> listDto = list.map(obj -> new CategoriaDTO(obj));
+        return ResponseEntity.ok().body(listDto);
+
+    }
 }
 
