@@ -1,6 +1,7 @@
 package com.morpheus.cursomc2.resources;
 
 import com.morpheus.cursomc2.domain.Categoria;
+import com.morpheus.cursomc2.dto.CategoriaDTO;
 import com.morpheus.cursomc2.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/categorias")
@@ -26,9 +28,11 @@ public class CategoriaResource {
     }
 
     @GetMapping
-    public ResponseEntity<List<Categoria>> findAll(){
+    public ResponseEntity<List<CategoriaDTO>> findAll(){
         List<Categoria> categoriaList = categoriaService.findAll();
-        return ResponseEntity.ok().body(categoriaList);
+        List<CategoriaDTO> dtoList = categoriaList.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+
+        return ResponseEntity.ok().body(dtoList);
     }
 
     @PostMapping
