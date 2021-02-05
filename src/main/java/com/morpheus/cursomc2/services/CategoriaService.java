@@ -1,6 +1,7 @@
 package com.morpheus.cursomc2.services;
 
 import com.morpheus.cursomc2.domain.Categoria;
+import com.morpheus.cursomc2.dto.CategoriaDTO;
 import com.morpheus.cursomc2.repository.CategoriaRepository;
 import com.morpheus.cursomc2.services.exceptions.DataIntegrityException;
 import com.morpheus.cursomc2.services.exceptions.ObjectNotFoundException;
@@ -54,5 +55,9 @@ public class CategoriaService {
     public Page<Categoria> findPage(Integer page, Integer linePerPage, String direction, String orderBy){
         PageRequest pageRequest = PageRequest.of(page, linePerPage, Sort.Direction.valueOf(direction), orderBy);
         return categoriaRepository.findAll(pageRequest);
+    }
+
+    public Categoria fromDTO(CategoriaDTO objDto){
+        return new Categoria(objDto.getId(), objDto.getNome());
     }
 }
