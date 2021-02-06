@@ -1,14 +1,16 @@
 package com.morpheus.cursomc2.resources;
 
 import com.morpheus.cursomc2.domain.Cliente;
+import com.morpheus.cursomc2.dto.ClienteDTO;
 import com.morpheus.cursomc2.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -30,6 +32,45 @@ public class ClienteResource {
         List<Cliente> clienteList = clienteService.findAll();
         return ResponseEntity.ok().body(clienteList);
     }
+
+    @PostMapping
+    public ResponseEntity<Void> insert(@Valid @RequestBody ClienteDTO objDto){
+        Cliente obj = clienteService.fromDTO(objDto);
+        clienteService.insert(obj);
+        URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(objDto.getId())
+                .toUri();
+        return ResponseEntity.created(uri).build();
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Void> update(@Valid @RequestBody ClienteDTO objDto, @PathVariable Integer id){
+        Cliente obj = clienteService.fromDTO(objDto);
+        obj.setId(id);
+        clienteService.update(obj);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Cliente id){
+        clienteService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/page")
+    public ResponseEntity<Page<ClienteDTO>> findPage(
+            @RequestParam(value="page", defaultValue="0") Integer page,
+            @RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage,
+            @RequestParam(value="direction", defaultValue="ASC") String direction,
+            @RequestParam(value="orderBy", defaultValue="nome") String orderBy) {
+
+        Page<Cliente> list = clienteService.findPage(page, linesPerPage, direction, orderBy);
+        Page<ClienteDTO> listDto = list.map(ClienteDTO::new);
+        return ResponseEntity.ok().body(listDto);
+
+    }
+
 }
 
-/*Voltar para a aula 18*/
