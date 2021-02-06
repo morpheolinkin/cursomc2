@@ -1,6 +1,7 @@
 package com.morpheus.cursomc2.services;
 
 import com.morpheus.cursomc2.domain.Categoria;
+import com.morpheus.cursomc2.domain.Cliente;
 import com.morpheus.cursomc2.dto.CategoriaDTO;
 import com.morpheus.cursomc2.repository.CategoriaRepository;
 import com.morpheus.cursomc2.services.exceptions.DataIntegrityException;
@@ -38,8 +39,13 @@ public class CategoriaService {
 
     public Categoria update(Categoria obj) {
         //No método SAVE, quando o ID vale nulo ele insere, quando não vale nulo ele atualiza o objeto
-        find(obj.getId()); //Verifica se o id existe
-        return categoriaRepository.save(obj);
+        Categoria newObj = find(obj.getId()); //Verifica se o id existe
+        updateData(newObj, obj);
+        return categoriaRepository.save(newObj);
+    }
+
+    private void updateData(Categoria newObj, Categoria obj) {
+        newObj.setNome(obj.getNome());
     }
 
     public void delete(Categoria id) {
