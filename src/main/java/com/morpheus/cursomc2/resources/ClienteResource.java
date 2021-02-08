@@ -2,6 +2,7 @@ package com.morpheus.cursomc2.resources;
 
 import com.morpheus.cursomc2.domain.Cliente;
 import com.morpheus.cursomc2.dto.ClienteDTO;
+import com.morpheus.cursomc2.dto.ClienteNewDTO;
 import com.morpheus.cursomc2.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -34,13 +35,13 @@ public class ClienteResource {
     }
 
     @PostMapping
-    public ResponseEntity<Void> insert(@Valid @RequestBody ClienteDTO objDto){
+    public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDto){
         Cliente obj = clienteService.fromDTO(objDto);
-        clienteService.insert(obj);
+        obj = clienteService.insert(obj);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(objDto.getId())
+                .buildAndExpand(obj.getId())
                 .toUri();
         return ResponseEntity.created(uri).build();
     }
