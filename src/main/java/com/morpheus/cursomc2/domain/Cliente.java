@@ -23,6 +23,7 @@ public class Cliente implements Serializable {
     private String cpfOuCnpj;
     private Integer tipo;//Macete para controlar o numero inteiro do tipo
 
+    //Para que um cliente com endereços atrelado a ele no banco possa ser excluído, cascade=CascadeType.
     @OneToMany(mappedBy = "cliente", cascade=CascadeType.ALL)
     private List<Endereco> enderecos = new ArrayList<>();
 
