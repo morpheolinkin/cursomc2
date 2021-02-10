@@ -1,7 +1,10 @@
 package com.morpheus.cursomc2.dto;
 
+import com.morpheus.cursomc2.services.validation.ClienteInsert;
+
 import java.io.Serializable;
 
+@ClienteInsert
 public class ClienteNewDTO implements Serializable {
 
     private String nome;
