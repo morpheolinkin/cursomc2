@@ -1,12 +1,14 @@
 package com.morpheus.cursomc2.dto;
 
 import com.morpheus.cursomc2.domain.Cliente;
+import com.morpheus.cursomc2.services.validation.ClienteUpdate;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
+@ClienteUpdate
 public class ClienteDTO implements Serializable {
 
     private Integer id;
