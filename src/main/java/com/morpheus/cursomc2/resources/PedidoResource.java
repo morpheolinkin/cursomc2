@@ -31,5 +31,3 @@ public class PedidoResource {
         return ResponseEntity.ok().body(pedidoList);
     }
 }
-
-/*Voltar para a aula 18*/

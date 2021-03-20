@@ -12,7 +12,6 @@ public class Produto implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private String nome;
     private Double preco;
 
