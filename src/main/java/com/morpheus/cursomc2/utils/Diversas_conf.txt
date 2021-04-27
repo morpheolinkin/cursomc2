@@ -1,0 +1,20 @@
+=============================================================================
+<<<<<PARA O MYSQL>>>>>
+
+#Para acessar o terminal do mysql:
+
+Primeiro tem de ter acesso ao bash do conteiner do mysql no docker
+docker exec -it <nome do conteiner mysql> bash -l
+docker exec -it mysql_techblog bash -l
+
+após ter acesso ao bash com o comando anterior, executa o comando do mysql
+mysql -u<user> -p<senha>
+mysql -uroot -p
+
+
+<<<<<COMANDOS DOCKER ÚTEIS>>>>>
+#Docker ps
+    Lista os conteines
+
+
+=============================================================================

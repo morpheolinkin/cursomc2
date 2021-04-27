@@ -4,14 +4,13 @@ services:
     image: mysql
     container_name: mysql_cursomc2
     environment:
-      - MYSQL_ROOT_HOST=%
-      - MYSQL_DATABASE=testdb
+      - MYSQL_DATABASE=cursomc2_spring
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
 
     ports:
     - "3306:3306"
     volumes:
-    - devdojo_data:/var/lib/mysql
+    - cursomc2_data:/var/lib/mysql
 
 volumes:
-  devdojo_data:
+  cursomc2_data:
