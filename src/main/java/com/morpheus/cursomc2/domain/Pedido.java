@@ -1,11 +1,13 @@
 package com.morpheus.cursomc2.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Pedido implements Serializable {
@@ -38,6 +40,17 @@ public class Pedido implements Serializable {
         this.instante = instante;
         this.cliente = cliente;
         this.enderecoDeEntrega = enderecoDeEntrega;
+    }
+
+    /*Para somar os subtotais e ter um total geral */
+    public Double getValorTotal(){
+        double soma = 0.0;
+        for (ItemPedido ip :
+                getItens()) {
+            soma += ip.getSubTotal();
+        }
+
+        return soma;
     }
 
     public Integer getId() {

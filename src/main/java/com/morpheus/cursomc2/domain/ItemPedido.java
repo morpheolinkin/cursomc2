@@ -31,6 +31,11 @@ public class ItemPedido implements Serializable {
         this.preco = preco;
     }
 
+    /*Calcula o subtotal dos item de pedidos*/
+    public Double getSubTotal(){//para ser reconhecido pelo JSon e Serializado, tem de colocar o prefixo "get"
+        return (getPreco() - getDesconto()) * getQuantidade();
+    }
+
     /*=====================================================*/
     /*Para ter acesso direto ao PEDIDO e PRODUTO,
     fora da minha classe ItemPedido*/

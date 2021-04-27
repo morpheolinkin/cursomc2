@@ -6,7 +6,6 @@ services:
     environment:
       - MYSQL_ROOT_HOST=%
       - MYSQL_DATABASE=testdb
-      - MYSQL_USER=root
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
 
     ports:

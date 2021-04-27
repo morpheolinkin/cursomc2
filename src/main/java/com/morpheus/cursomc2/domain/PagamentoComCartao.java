@@ -6,7 +6,7 @@ import com.morpheus.cursomc2.domain.enums.EstadoPagamento;
 import javax.persistence.Entity;
 
 @Entity
-@JsonTypeName("PagamentoComCartao")
+@JsonTypeName("pagamentoComCartao")
 public class PagamentoComCartao extends Pagamento{
     private Integer numeroDeParcelas;
 
